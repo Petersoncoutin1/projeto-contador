@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Peterson e Maria Vitoria 💖</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      color: #880e4f;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .timer {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+    .carousel {
+      position: relative;
+      max-width: 90%;
+      margin: auto;
+    }
+    .carousel img {
+      max-width: 100%;
+      max-height: 400px;
+      height: auto;
+      border: 4px solid #880e4f;
+      border-radius: 10px;
+      display: none;
+      margin: 0 auto;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    .controls {
+      margin-top: 10px;
+    }
+    .controls button {
+      background: #880e4f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    audio {
+      margin-top: 20px;
+    }
+    .frase-amor {
+      font-size: 1.2em;
+      margin-top: 30px;
+      color: #ad1457;
+    }
+    .versiculo {
+      margin-top: 50px;
+      font-size: 1em;
+      color: #6a1b9a;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Peterson e Maria Vitoria 💖</h1>
+  <p>Estamos juntos há:</p>
+  <div class="timer" id="timer">Carregando...</div>
+  <div class="frase-amor">Este amor vem se alimentando dia após dia, há <span id="contador-amor"></span>.</div>
+  
+  <div class="carousel">
+    <img src="fotos/foto1.jpg" class="active" alt="Foto 1" />
+    <img src="fotos/foto2.jpg" alt="Foto 2" />
+    <img src="fotos/foto3.jpg" alt="Foto 3" />
+    <img src="fotos/foto4.jpg" alt="Foto 4" />
+    <img src="fotos/foto5.jpg" alt="Foto 5" />
+    <img src="fotos/foto6.jpg" alt="Foto 6" />
+    <img src="fotos/foto7.jpg" alt="Foto 7" />
+    <img src="fotos/foto8.jpg" alt="Foto 8" />
+    <img src="fotos/foto9.jpg" alt="Foto 9" />
+    <img src="fotos/foto10.jpg" alt="Foto 10" />
+    <img src="fotos/foto11.jpg" alt="Foto 11" />
+    <img src="fotos/foto12.jpg" alt="Foto 12" />
+    <img src="fotos/foto13.jpg" alt="Foto 13" />
+    <img src="fotos/foto14.jpg" alt="Foto 14" />
+  </div>
+
+  <div class="controls">
+    <button onclick="prevSlide()">Anterior</button>
+    <button onclick="nextSlide()">Próxima</button>
+  </div>
+
+  <audio controls autoplay loop>
+    <source src="musica/trilha.mp3" type="audio/mp3">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <div class="versiculo">
+    "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."<br>
+    <strong>— 1 Coríntios 13:4-7</strong>
+  </div>
+
+  <script>
+    const startDate = new Date("2025-06-28T22:30:00");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+      
+      if (diff < 0) {
+        document.getElementById('timer').innerText = "Ainda não começamos!";
+        document.getElementById('contador-amor').innerText = "0 dias";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('timer').innerText =
+        `${days} dias, ${hours}h ${minutes}min ${seconds}s`;
+      document.getElementById('contador-amor').innerText = `${days} dias`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel img');
+
+    function showSlide(index) {
+      slides.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+  </script>
+</body>
+</html>
