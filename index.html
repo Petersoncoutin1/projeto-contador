@@ -51,6 +51,17 @@
     }
     audio {
       margin-top: 20px;
+      display: none; /* Oculta o player de áudio nativo */
+    }
+    #toggleSound {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #880e4f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
     }
     .frase-amor {
       font-size: 1.2em;
@@ -94,19 +105,11 @@
   </div>
 
   <audio autoplay loop muted id="bg-music">
-  <source src="musica/trilha.mp3" type="audio/mpeg" />
-</audio>
+    <source src="musica/trilha.mp3" type="audio/mpeg" />
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
 
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("bg-music");
-    audio.muted = false;
-    audio.play().catch(() => {
-      // Somente inicia se o usuário interagir
-      console.log("Autoplay bloqueado até interação do usuário.");
-    });
-  });
-</script>
+  <button id="toggleSound">Ativar Som</button>
 
   <div class="versiculo">
     "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."<br>
@@ -157,6 +160,26 @@
       currentSlide = (currentSlide - 1 + slides.length) % slides.length;
       showSlide(currentSlide);
     }
+
+    const audio = document.getElementById("bg-music");
+    const toggleSound = document.getElementById("toggleSound");
+
+    // Começa mudo para evitar bloqueios do navegador
+    audio.muted = true;
+    audio.play().catch(() => {
+      console.log("Autoplay bloqueado.");
+    });
+
+    toggleSound.addEventListener("click", () => {
+      if (audio.muted) {
+        audio.muted = false;
+        audio.play();
+        toggleSound.innerText = "Desativar Som";
+      } else {
+        audio.muted = true;
+        toggleSound.innerText = "Ativar Som";
+      }
+    });
   </script>
 </body>
 </html>
